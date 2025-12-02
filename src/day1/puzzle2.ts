@@ -40,7 +40,7 @@ function rotate(current: State, rotation: Rotation): State {
   return { tick: endTick, crossings: current.crossings + crossings };
 }
 
-function puzzle1(list: string[]): number {
+function puzzle2(list: string[]): number {
   const state = list.map(parseRotation).reduce(
     (state, rotation) => {
       const newState = rotate(state, rotation);
@@ -66,7 +66,7 @@ function main() {
   });
 
   process.stdin.on("end", () => {
-    const result = puzzle1(data.split("\n"));
+    const result = puzzle2(data.split("\n"));
     console.log(result);
   });
 
