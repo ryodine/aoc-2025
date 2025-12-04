@@ -74,3 +74,36 @@ export function withCommaSeparatedInput<T>(
     return handler(lines);
   };
 }
+
+export function withSubs<T>(
+  find: string,
+  replace: string,
+  handler: PuzzleHandler<T, string>
+): PuzzleHandler<T, string> {
+  return (input: string) => {
+    const replaced = input.replaceAll(find, replace);
+    return handler(replaced);
+  };
+}
+
+export interface SimpleCharGrid {
+  width: number;
+  height: number;
+  data: string[][];
+}
+
+export function withGridInput<T>(
+  handler: PuzzleHandler<T, SimpleCharGrid>
+): PuzzleHandler<T, string> {
+  return (input: string) => {
+    const lines = input.split("\n").map((line) => line.trim().split(""));
+
+    const grid: SimpleCharGrid = {
+      width: lines.length > 0 ? lines[0]!.length : 0,
+      height: lines.length,
+      data: lines,
+    };
+
+    return handler(grid);
+  };
+}

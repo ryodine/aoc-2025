@@ -1,7 +1,4 @@
-import {
-  appWrapper,
-  withCommaSeparatedInput,
-} from "../../packages/common/appWrapper.ts";
+import { appWrapper, withCommaSeparatedInput } from "@aoc-2025/common";
 
 interface Range {
   min: number;

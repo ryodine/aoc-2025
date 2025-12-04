@@ -1,4 +1,4 @@
-import { appWrapper, withLineInput } from "../../packages/common/appWrapper.ts";
+import { appWrapper, withLineInput } from "@aoc-2025/common";
 
 function maxJoltagePt1(s: string): number {
   let max = -1;
