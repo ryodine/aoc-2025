@@ -1,23 +1,19 @@
 {
   "name": "aoc-2025",
   "version": "1.0.0",
-  "description": "",
-  "homepage": "https://github.com/ryodine/aoc-2025#readme",
-  "bugs": {
-    "url": "https://github.com/ryodine/aoc-2025/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ryodine/aoc-2025.git"
-  },
-  "license": "ISC",
-  "author": "",
+  "description": "Advent of Code 2025 solutions in TypeScript",
+  "license": "MIT",
+  "author": "Ryan Johnson",
   "type": "module",
   "scripts": {
-    "lint": "eslint ./src --ext .ts",
-    "day1": "ts-node src/day1/puzzle1.ts"
+    "lint": "eslint ./src --ext .ts"
   },
+  "workspaces": [
+    "src/packages/*",
+    "src/solutions/*"
+  ],
   "dependencies": {
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.0"
   },

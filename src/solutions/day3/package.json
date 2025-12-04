@@ -1,0 +1,13 @@
+{
+  "name": "@aoc-2025/day3",
+  "version": "1.0.0",
+  "description": "Advent of Code 2025 solutions in TypeScript - Day 3",
+  "license": "MIT",
+  "author": "Ryan Johnson",
+  "type": "module",
+  "private": false,
+  "scripts": {
+    "exec:part1": "ts-node puzzles.ts puzzle1",
+    "exec:part2": "ts-node puzzles.ts puzzle2"
+  }
+}
