@@ -55,11 +55,33 @@ export function appWrapper<T>(puzzles: {
 }
 
 export function withLineInput<T>(
-  handler: PuzzleHandler<T, string[]>
+  handler: PuzzleHandler<T, string[]>,
+  skipEmptyLines = true
 ): PuzzleHandler<T, string> {
   return (input: string) => {
-    const lines = input.split("\n").filter((line) => line.length > 0);
-    return handler(lines);
+    const lines = input.split("\n");
+    if (skipEmptyLines) {
+      return handler(lines.filter((line) => line.trim().length > 0));
+    } else {
+      return handler(lines);
+    }
+  };
+}
+
+export function withSplitIntoGroups<T, V>(
+  handler: PuzzleHandler<T, V[][]>,
+  predicate: (val: V) => boolean
+): PuzzleHandler<T, V[]> {
+  return (input: V[]) => {
+    const groups: V[][] = [[]];
+    input.forEach((val) => {
+      if (predicate(val)) {
+        groups.push([]);
+      } else {
+        groups[groups.length - 1]!.push(val);
+      }
+    });
+    return handler(groups);
   };
 }
 
