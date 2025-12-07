@@ -70,18 +70,43 @@ export function withLineInput<T>(
 
 export function withSplitIntoGroups<T, V>(
   handler: PuzzleHandler<T, V[][]>,
-  predicate: (val: V) => boolean
+  predicate: (val: V, idx: number, array: V[]) => boolean,
+  includesDelimiterInGroups = false
 ): PuzzleHandler<T, V[]> {
   return (input: V[]) => {
     const groups: V[][] = [[]];
-    input.forEach((val) => {
-      if (predicate(val)) {
+    input.forEach((val, idx, array) => {
+      if (predicate(val, idx, array)) {
         groups.push([]);
+        if (includesDelimiterInGroups) {
+          groups[groups.length - 1]!.push(val);
+        }
       } else {
         groups[groups.length - 1]!.push(val);
       }
     });
     return handler(groups);
+  };
+}
+
+type Tuple<T, N extends number> = N extends N
+  ? number extends N
+    ? T[]
+    : _TupleOf<T, N, []>
+  : never;
+type _TupleOf<T, N extends number, R extends unknown[]> = R["length"] extends N
+  ? R
+  : _TupleOf<T, N, [T, ...R]>;
+
+export function asNumGroups<T, V, N extends number>(
+  handler: PuzzleHandler<T, Tuple<V, N>>,
+  n: N
+): PuzzleHandler<T, V[]> {
+  return (input: V[]) => {
+    if (input.length !== n) {
+      throw new Error(`Expected exactly ${n} items, got ${input.length}`);
+    }
+    return handler(input as Tuple<V, N>);
   };
 }
 
