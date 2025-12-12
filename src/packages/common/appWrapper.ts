@@ -89,7 +89,7 @@ export function withSplitIntoGroups<T, V>(
   };
 }
 
-type Tuple<T, N extends number> = N extends N
+export type Tuple<T, N extends number> = N extends N
   ? number extends N
     ? T[]
     : _TupleOf<T, N, []>
@@ -152,5 +152,15 @@ export function withGridInput<T>(
     };
 
     return handler(grid);
+  };
+}
+
+export function withListTransformedInput<T, In, Out>(
+  handler: PuzzleHandler<T, Out[]>,
+  tf: (input: In) => Out
+): PuzzleHandler<T, In[]> {
+  return (input: In[]) => {
+    const transformed = input.map(tf);
+    return handler(transformed);
   };
 }
